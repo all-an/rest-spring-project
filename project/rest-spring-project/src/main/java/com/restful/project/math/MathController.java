@@ -1,6 +1,7 @@
 package com.restful.project.math;
 
 import com.restful.project.Greeting;
+import com.restful.project.exceptions.UnsuportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,15 +16,22 @@ public class MathController {
                       @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
-            throw new Exception();
+            throw new UnsuportedMathOperationException("Please set a numeric value!");
         }
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
-        
+
     }
 
-    private Double convertToDouble(String numberOne) {
+    private Double convertToDouble(String strNumber) {
+        if(strNumber == null) return 0D;
+        String number = strNumber.replaceAll(",", ".");
+        if(isNumeric(number)) return Double.parseDouble(number);
+        return 0D;
     }
 
-    private boolean isNumeric(String numberOne) {
+    private boolean isNumeric(String strNumber) {
+        if(strNumber == null) return false;
+        String number = strNumber.replaceAll(",", ".");
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 }
