@@ -1,5 +1,6 @@
 package com.restful.project;
 
+
 public class Greeting {
 
     private final Long id;
