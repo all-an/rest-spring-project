@@ -13,12 +13,26 @@ public class Person implements Serializable{
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String addressName;
+	private String address;
 	private String gender;
 	
 	public Person() {
 
 	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 
 	public String getFirstName() {
 		return firstName;
@@ -36,12 +50,12 @@ public class Person implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public String getAddressName() {
-		return addressName;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressName(String addressName) {
-		this.addressName = addressName;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getGender() {
@@ -54,7 +68,7 @@ public class Person implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(addressName, firstName, gender, id, lastName);
+		return Objects.hash(address, firstName, gender, id, lastName);
 	}
 
 	@Override
@@ -66,7 +80,7 @@ public class Person implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		return Objects.equals(addressName, other.addressName) && Objects.equals(firstName, other.firstName)
+		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName);
 	}

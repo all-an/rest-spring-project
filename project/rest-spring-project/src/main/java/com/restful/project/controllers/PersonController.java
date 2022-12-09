@@ -1,30 +1,27 @@
 package com.restful.project.controllers;
 
-import java.util.concurrent.atomic.AtomicLong;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restful.project.exceptions.UnsuportedMathOperationException;
-import com.restful.project.math.conversors.NumberConverter;
+import com.restful.project.model.Person;
+import com.restful.project.services.PersonService;
 
 @RestController
+@RequestMapping("/person")
 public class PersonController {
 	
 
-    @SuppressWarnings("unused")
-	private final AtomicLong counter = new AtomicLong();
+	@Autowired
+    private PersonService personService;
 
-    @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
-    public Double sum(@PathVariable(value = "numberOne") String numberOne,
-                      @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person findById(@PathVariable(value = "id") String id) throws Exception {
 
-        if(!conversor.isNumeric(numberOne) || !conversor.isNumeric(numberTwo)){
-            throw new UnsuportedMathOperationException("Please set a numeric value!");
-        }
-        return conversor.convertToDouble(numberOne) + conversor.convertToDouble(numberTwo);
+    	return personService.findById(id);
 
     }
     
